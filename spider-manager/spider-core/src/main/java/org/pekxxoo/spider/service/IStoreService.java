@@ -12,4 +12,11 @@ public interface IStoreService {
      * @param page
      */
     public void save(Page page);
+
+    /**
+     * 通过电视剧Id获取一条
+     * @param tvId
+     * @return
+     */
+    Page findByTvId(String tvId);
 }

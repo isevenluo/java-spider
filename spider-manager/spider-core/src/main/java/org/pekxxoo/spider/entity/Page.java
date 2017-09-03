@@ -1,5 +1,6 @@
 package org.pekxxoo.spider.entity;
 
+import org.apache.solr.client.solrj.beans.Field;
 import org.jsoup.nodes.Element;
 
 import java.text.SimpleDateFormat;
@@ -24,6 +25,7 @@ public class Page extends AbstractDocument{
     @Transient
     private Element content;
     //总播放量
+    @Field
     private String allnumber;
     //每日播放增量
     private String daynumber;
@@ -37,14 +39,17 @@ public class Page extends AbstractDocument{
     private String againstnumber;
 
     //电视剧名称
+    @Field
     private String tvname;
     //页面url
+    @Field
     private String url;
     //子集数据
     private String episodenumber;
 
     //电视剧id
     @Indexed()
+    @Field
     private String tvId;
 
     //存储电视剧url（包含列表url和详情页url）
@@ -58,9 +63,13 @@ public class Page extends AbstractDocument{
     private String grade;
 
     //上映时间
+    @Field
     private String releaseTime;
 
-    private String createTime;
+    //抓取日期
+    private String grabTime;
+
+    private Date createTime;
 
     public Page(String allnumber, String commentnumber, String supportnumber, String url, String tvId) {
         this.allnumber = allnumber;
@@ -71,10 +80,11 @@ public class Page extends AbstractDocument{
     }
 
     public  Page() {
-        Date data = new Date();
+        Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-dd-MM");
-        String time = sdf.format(data);
-        this.createTime = time;
+        String time = sdf.format(date);
+        this.grabTime = time;
+        this.createTime = date;
     }
 
     public Element getContent() {
@@ -181,11 +191,11 @@ public class Page extends AbstractDocument{
         this.type = type;
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
@@ -203,5 +213,13 @@ public class Page extends AbstractDocument{
 
     public void setReleaseTime(String releaseTime) {
         this.releaseTime = releaseTime;
+    }
+
+    public String getGrabTime() {
+        return grabTime;
+    }
+
+    public void setGrabTime(String grabTime) {
+        this.grabTime = grabTime;
     }
 }

@@ -19,4 +19,9 @@ public class MongoDBStoreServiceImpl implements IStoreService{
     public void save(Page page) {
         pageRepository.save(page);
     }
+
+    @Override
+    public Page findByTvId(String tvId) {
+        return pageRepository.findByTvId(tvId);
+    }
 }

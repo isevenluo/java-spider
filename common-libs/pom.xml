@@ -25,6 +25,7 @@
     <quartz.version>2.2.1</quartz.version>
     <apache.commons.lang.version>3.4</apache.commons.lang.version>
     <jsoup.version>1.9.2</jsoup.version>
+    <solrj.version>5.5.0</solrj.version>
   </properties>
 
   <dependencyManagement>
@@ -80,6 +81,13 @@
         <artifactId>jsoup</artifactId>
         <version>${jsoup.version}</version>
       </dependency>
+
+      <dependency>
+        <groupId>org.apache.solr</groupId>
+        <artifactId>solr-solrj</artifactId>
+        <version>${solrj.version}</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 

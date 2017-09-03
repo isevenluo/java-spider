@@ -3,12 +3,14 @@ package org.pekxxoo.spider.schedule;
 import org.apache.commons.lang3.StringUtils;
 import org.pekxxoo.spider.entity.Page;
 import org.pekxxoo.spider.entity.PageType;
+import org.pekxxoo.spider.entity.SolrConstant;
 import org.pekxxoo.spider.service.IDownloadService;
 import org.pekxxoo.spider.service.IProcessService;
 import org.pekxxoo.spider.service.IRepositoryService;
 import org.pekxxoo.spider.service.IStoreService;
 import org.pekxxoo.utils.AsyncTaskExecutorUtil;
 import org.pekxxoo.utils.RedisConfig;
+import org.pekxxoo.utils.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +40,16 @@ public class StartSpiderTask {
     @Autowired
     private IStoreService storeService;
 
+    @Autowired
+    private RedisUtil redisUtil;
+
     private static Logger logger = LoggerFactory.getLogger(StartSpiderTask.class);
 
     /**
      * 定时任务启动爬虫,爬取数据
      */
 
-    @Scheduled(cron = "30 50 * * * ?")
+    @Scheduled(cron = "30 22 * * * ?")
     public void startSpider() {
         while (true) {
             // 从数据仓库获取url
@@ -61,6 +66,9 @@ public class StartSpiderTask {
                     // 当前页面的url如果是详情页,则数据已经抓取,这里进行存储
                     if (page.getUrl().contains("http://list.youku.com/show/id_")) {
                         // TODO
+                        // 将存储到mongoDB中的数据添加到redis中,为了同步到solr中
+                        redisUtil.lpush(SolrConstant.SOLR_TV_INDEX.toString(),page.getTvId());
+
                         storeService.save(page);
                         logger.info("详情数据已经添加到数据库");
                     }
@@ -88,7 +96,7 @@ public class StartSpiderTask {
     /**
      * 定时任务启动爬虫,添加起始url
      */
-    @Scheduled(cron = "0 50 * * * ?")
+    @Scheduled(cron = "00 00 22 * * ?")
     public void addStartUrl() {
         repositoryService.addStartUrl();
     }

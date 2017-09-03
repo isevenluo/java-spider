@@ -20,7 +20,7 @@ public class JsoupDownloadUtil {
         }
         Element content = null;
         try {
-            Document document = Jsoup.connect(url).userAgent(USER_AGENT).timeout(5000).get();
+            Document document = Jsoup.connect(url).userAgent(USER_AGENT).timeout(10000).get();
             content = document.body();
 
         } catch (IOException e) {

@@ -63,6 +63,10 @@ public class YOUKUProcessServiceImpl implements IProcessService{
     }
 
     public void parseDetail(Page page) {
+
+        if(page == null) {
+            return;
+        }
         // 获取总播放量
         String allNumber = HtmlUtil.getFieldByRegex(page.getContent(),env.getProperty("parseAllNumber"),env.getProperty("allnumberRegex"));
         page.setAllnumber(allNumber);
