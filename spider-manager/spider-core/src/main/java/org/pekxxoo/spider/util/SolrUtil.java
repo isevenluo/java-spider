@@ -18,7 +18,7 @@ import org.pekxxoo.spider.entity.Page;
  */
 public class SolrUtil {
 	// solr服务器地址
-	private static final String SOLR_URL = "http://192.168.154.128:8983/solr/tv_play";
+	private static final String SOLR_URL = "http://192.168.154.129:8983/solr/tv_play";
 	private static HttpSolrClient client = null;
 	static {
 		try {

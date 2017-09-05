@@ -32,7 +32,7 @@ public class SolrIndexJob {
     @Autowired
     private IStoreService storeService;
 
-    @Scheduled(cron = "0 36 * * * ?")
+    @Scheduled(cron = "30 14 * * * ?")
     public void buildIndex2Solr() {
         String tvId = "";
         try {
@@ -51,8 +51,9 @@ public class SolrIndexJob {
                     object = redisUtil.rpop(SolrConstant.SOLR_TV_INDEX.toString());
                     if(object == null) {
                         tvId = "";
+                    } else {
+                        tvId = object.toString();
                     }
-                    tvId = object.toString();
                 } else {
                     logger.info("目前没有数据添加到Solr索引中了>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
                     break;
