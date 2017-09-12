@@ -13,7 +13,7 @@ import java.util.List;
  * Created by chong on 2017/5/26.
  */
 @Service
-public class RepositoryServiceImpl implements IRepositoryService{
+public class RepositoryServiceImpl implements IRepositoryService {
     @Autowired
     private RedisUtil redisUtil;
 
@@ -22,10 +22,10 @@ public class RepositoryServiceImpl implements IRepositoryService{
         String url = "";
         Object object = redisUtil.rpop(UrlType.HIGHLEVEL.name());
 
-        if(object == null) {
+        if (object == null) {
             object = redisUtil.rpop(UrlType.LOWLEVEL.name());
         }
-        if(object != null) {
+        if (object != null) {
             url = object.toString();
         }
         return url;
@@ -33,20 +33,20 @@ public class RepositoryServiceImpl implements IRepositoryService{
 
     @Override
     public void addHighLevel(String url) {
-        redisUtil.lpush(UrlType.HIGHLEVEL.name(),url);
+        redisUtil.lpush(UrlType.HIGHLEVEL.name(), url);
     }
 
     @Override
     public void addLowLevel(String url) {
-        redisUtil.lpush(UrlType.LOWLEVEL.name(),url);
+        redisUtil.lpush(UrlType.LOWLEVEL.name(), url);
     }
 
     @Override
     public void addStartUrl() {
-        List<Object> startUrl = redisUtil.lrange(UrlType.STARTURL.name(),0,-1);
-        if(startUrl !=null && !startUrl.isEmpty()) {
-            for(Object url : startUrl) {
-                redisUtil.lpush(UrlType.HIGHLEVEL.name(),url.toString());
+        List<Object> startUrl = redisUtil.lrange(UrlType.STARTURL.name(), 0, -1);
+        if (startUrl != null && !startUrl.isEmpty()) {
+            for (Object url : startUrl) {
+                redisUtil.lpush(UrlType.HIGHLEVEL.name(), url.toString());
             }
         }
     }

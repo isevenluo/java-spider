@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * Created by chong on 2017/8/9.
  */
 @Service
-public class MongoDBStoreServiceImpl implements IStoreService{
+public class MongoDBStoreServiceImpl implements IStoreService {
 
     @Autowired
     private PageRepository pageRepository;

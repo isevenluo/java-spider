@@ -59,7 +59,7 @@ public class StartSpiderTask {
                 AsyncTaskExecutorUtil.execute(() -> {
                     System.out.println("当前线程的id为 : " + Thread.currentThread().getId());
                     // 使用jsoup下载页面
-                    Page page = downloadService.download(url,PageType.YOUKU);
+                    Page page = downloadService.download(url, PageType.YOUKU);
                     // 对下载的页面进行处理,这里会将列表页面和详情页面都添加到urlList中
                     processService.process(page, PageType.YOUKU);
 
@@ -67,7 +67,7 @@ public class StartSpiderTask {
                     if (page.getUrl().contains("http://list.youku.com/show/id_")) {
                         // TODO
                         // 将存储到mongoDB中的数据添加到redis中,为了同步到solr中
-                        redisUtil.lpush(SolrConstant.SOLR_TV_INDEX.toString(),page.getTvId());
+                        redisUtil.lpush(SolrConstant.SOLR_TV_INDEX.toString(), page.getTvId());
 
                         storeService.save(page);
                         logger.info("详情数据已经添加到数据库");

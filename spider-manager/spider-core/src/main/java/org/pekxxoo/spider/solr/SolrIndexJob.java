@@ -2,10 +2,6 @@ package org.pekxxoo.spider.solr;
 
 /**
  * Created by chong on 2017/8/27.
- */
-
-
-/**
  * 定时增量solr索引
  */
 
@@ -38,18 +34,18 @@ public class SolrIndexJob {
         try {
             logger.info("定时增加索引开始执行>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             Object object = redisUtil.rpop(SolrConstant.SOLR_TV_INDEX.toString());
-            if(object == null) {
+            if (object == null) {
                 tvId = "";
             }
             tvId = object.toString();
             while (true) {
-                if(StringUtils.isNotEmpty(tvId)) {
+                if (StringUtils.isNotEmpty(tvId)) {
                     Page page = storeService.findByTvId(tvId);
-                    if(checkData(page)) {
+                    if (checkData(page)) {
                         SolrUtil.addIndex(page);
                     }
                     object = redisUtil.rpop(SolrConstant.SOLR_TV_INDEX.toString());
-                    if(object == null) {
+                    if (object == null) {
                         tvId = "";
                     } else {
                         tvId = object.toString();
@@ -60,17 +56,17 @@ public class SolrIndexJob {
                 }
             }
         } catch (Exception e) {
-            redisUtil.lpush(SolrConstant.SOLR_TV_INDEX.toString(),tvId);
-            logger.error("往solr中添加索引数据出错了>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",e.getMessage(),e);
+            redisUtil.lpush(SolrConstant.SOLR_TV_INDEX.toString(), tvId);
+            logger.error("往solr中添加索引数据出错了>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", e.getMessage(), e);
         }
 
     }
 
     private boolean checkData(Page page) {
-        if(page == null) {
+        if (page == null) {
             return false;
         }
-        if(page.getTvname().equals("0") || page.getUrl().equals("0") || page.getAllnumber().equals("0") || page.getTvId().equals("0") || page.getReleaseTime().equals("0")) {
+        if (page.getTvname().equals("0") || page.getUrl().equals("0") || page.getAllnumber().equals("0") || page.getTvId().equals("0") || page.getReleaseTime().equals("0")) {
             return false;
         }
         return true;

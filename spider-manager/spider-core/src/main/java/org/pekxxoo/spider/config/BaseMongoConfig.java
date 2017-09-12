@@ -3,6 +3,7 @@ package org.pekxxoo.spider.config;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
