@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * Created by chong on 2017/6/24.
  */
 @Service
-public class JsoupDownloadServiceImpl implements IDownloadService{
+public class JsoupDownloadServiceImpl implements IDownloadService {
     @Override
     public Page download(String url, PageType type) {
         Page page = new Page();

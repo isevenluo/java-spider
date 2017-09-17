@@ -28,7 +28,7 @@ public class SolrIndexJob {
     @Autowired
     private IStoreService storeService;
 
-    @Scheduled(cron = "30 14 * * * ?")
+    @Scheduled(cron = "0 0/5 12,13 * * ?")  // 每天的12点和13点,每隔5分钟触发
     public void buildIndex2Solr() {
         String tvId = "";
         try {

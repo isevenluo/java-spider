@@ -49,7 +49,7 @@ public class StartSpiderTask {
      * 定时任务启动爬虫,爬取数据
      */
 
-    @Scheduled(cron = "30 07 * * * ?")
+    @Scheduled(cron = "0 5 12 * * ?")
     public void startSpider() {
         while (true) {
             // 从数据仓库获取url
@@ -96,7 +96,7 @@ public class StartSpiderTask {
     /**
      * 定时任务启动爬虫,添加起始url
      */
-    @Scheduled(cron = "00 07 * * * ?")
+    @Scheduled(cron = "00 00 12 * * ?")
     public void addStartUrl() {
         repositoryService.addStartUrl();
     }
