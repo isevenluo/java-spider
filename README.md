@@ -1,5 +1,6 @@
 # java-spider
 使用java爬虫框架jsoup爬取视频网站内容
+[jsoup使用指南](http://www.open-open.com/jsoup/)
 
 **url分布式管理使用redis**
 
